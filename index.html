@@ -130,26 +130,27 @@
                 var str = request.responseText;
                 document.getElementById("number").innerHTML = str.words;
                 */
+                // To read a text file:
                 var rawFile = new XMLHttpRequest();
                 rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/Text.txt", false);
                 rawFile.onreadystatechange = function () {
                     if(rawFile.readyState === 4) {
                         if(rawFile.status === 200 || rawFile.status == 0) {
-                            var allText = rawFile.responseText;
-                            allText = allText.split(/\r\n|\n/);
+                            var allText = rawFile.responseText;  // sets allText to a single string of the whole file
+                            allText = allText.split(/\r\n|\n/);  // sets allText to an array of lines of text
                             document.getElementById("number").innerHTML = allText[1];
                         }
                     }
                 }
-                rawFile.send(null);
+                rawFile.send(null);  // This might not be necessary.
                 /*
-                // To read part of a JSON:
+                // To read a JSON:
                 var rawFile = new XMLHttpRequest();
                 rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/JSON.json", false);
                 rawFile.onreadystatechange = function () {
                     if(rawFile.readyState === 4) {
                         if(rawFile.status === 200 || rawFile.status == 0) {
-                            var allText = JSON.parse(rawFile.responseText);
+                            var allText = JSON.parse(rawFile.responseText);  // turns the string into a useable object
                             document.getElementById("number").innerHTML = allText["number"];
                         }
                     }
@@ -190,7 +191,7 @@
     </head>
     <body>
         <p>
-            Trial number = 13
+            Trial number = 0
         </p>
         <div id="circle">
         </div>
