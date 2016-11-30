@@ -123,11 +123,24 @@
                 }
             }
             function check() {
+                /*
                 var request = new XMLHttpRequest();
                 request.open("GET", "https://coolprogramminguser.github.io/Experimentation/Text.txt");
                 request.send();
                 var str = request.responseText;
                 document.getElementById("number").innerHTML = str.words;
+                */
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/Text.txt", false);
+                rawFile.onreadystatechange = function () {
+                    if(rawFile.readyState === 4) {
+                        if(rawFile.status === 200 || rawFile.status == 0) {
+                            var allText = rawFile.responseText;
+                            alert(allText);
+                        }
+                    }
+                }
+                rawFile.send(null);
             }
         </script>
         <style>
@@ -162,7 +175,7 @@
     </head>
     <body>
         <p>
-            Trial number = 2
+            Trial number = 3
         </p>
         <div id="circle">
         </div>
