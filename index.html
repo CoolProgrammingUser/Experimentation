@@ -135,7 +135,7 @@
                 rawFile.onreadystatechange = function () {
                     if(rawFile.readyState === 4) {
                         if(rawFile.status === 200 || rawFile.status == 0) {
-                            var allText = rawFile.responseText;
+                            var allText = exec(rawFile.responseText);
                             document.getElementById("number").innerHTML = allText["number"];
                         }
                     }
@@ -175,7 +175,7 @@
     </head>
     <body>
         <p>
-            Trial number = 6
+            Trial number = 7
         </p>
         <div id="circle">
         </div>
