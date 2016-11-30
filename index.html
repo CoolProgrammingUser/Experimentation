@@ -131,6 +131,20 @@
                 document.getElementById("number").innerHTML = str.words;
                 */
                 var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/Text.txt", false);
+                rawFile.onreadystatechange = function () {
+                    if(rawFile.readyState === 4) {
+                        if(rawFile.status === 200 || rawFile.status == 0) {
+                            var allText = rawFile.responseText;
+                            allText.replace("\n", "<br>");
+                            document.getElementById("number").innerHTML = allText;
+                        }
+                    }
+                }
+                rawFile.send(null);
+                /*
+                // To read part of a JSON:
+                var rawFile = new XMLHttpRequest();
                 rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/JSON.json", false);
                 rawFile.onreadystatechange = function () {
                     if(rawFile.readyState === 4) {
@@ -141,6 +155,7 @@
                     }
                 }
                 rawFile.send(null);
+                */
             }
         </script>
         <style>
@@ -175,7 +190,7 @@
     </head>
     <body>
         <p>
-            Trial number = 8
+            Trial number = 9
         </p>
         <div id="circle">
         </div>
