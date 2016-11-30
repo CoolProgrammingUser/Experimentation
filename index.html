@@ -136,7 +136,7 @@
                     if(rawFile.readyState === 4) {
                         if(rawFile.status === 200 || rawFile.status == 0) {
                             var allText = rawFile.responseText;
-                            allText.replace(/ /g, "<br>");
+                            allText = allText.split(/\r\n|\n/);
                             document.getElementById("number").innerHTML = allText;
                         }
                     }
@@ -190,7 +190,7 @@
     </head>
     <body>
         <p>
-            Trial number = 11
+            Trial number = 12
         </p>
         <div id="circle">
         </div>
