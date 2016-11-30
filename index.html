@@ -131,7 +131,7 @@
                 document.getElementById("number").innerHTML = str.words;
                 */
                 var rawFile = new XMLHttpRequest();
-                rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/Text.txt", false);
+                rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/JSON.json", false);
                 rawFile.onreadystatechange = function () {
                     if(rawFile.readyState === 4) {
                         if(rawFile.status === 200 || rawFile.status == 0) {
@@ -175,7 +175,7 @@
     </head>
     <body>
         <p>
-            Trial number = 4
+            Trial number = 5
         </p>
         <div id="circle">
         </div>
