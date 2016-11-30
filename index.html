@@ -136,7 +136,7 @@
                     if(rawFile.readyState === 4) {
                         if(rawFile.status === 200 || rawFile.status == 0) {
                             var allText = rawFile.responseText;
-                            alert(allText);
+                            document.getElementById("number").innerHTML = allText;
                         }
                     }
                 }
@@ -175,7 +175,7 @@
     </head>
     <body>
         <p>
-            Trial number = 3
+            Trial number = 4
         </p>
         <div id="circle">
         </div>
