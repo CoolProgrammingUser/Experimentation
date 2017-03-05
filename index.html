@@ -55,7 +55,7 @@
             document.addEventListener("keyup", function(event) {  // This is when a key is let up.
                 keys[String(event.keyCode)] = false;
                 if (event.keyCode == 32) {  // space bar
-                    entities.push(new Entity({"appearance": {"background": hexSet([255,255,255], 2, "#")}}));//hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, "#")}}));
+                    entities.push(new Entity({"appearance": {"background": hexSet([0,0,0], 2, "#")}}));//hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, "#")}}));
                 }
                 var trueFalse = false;
                 for (var key in keys) {
