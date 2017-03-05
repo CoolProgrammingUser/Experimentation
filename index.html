@@ -80,7 +80,9 @@
                 var result = "";
                 numberList.forEach(function(number) {
                     number = Math.round(numberList[number]);
+                    alert(number);
                     number = number.toString(16);
+                    alert(number);
                     while (number.length < digits) {
                         number = "0" + number;
                     }
