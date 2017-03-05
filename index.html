@@ -80,13 +80,15 @@
                 var result = "";
                 for (var number in numberList) {  // When this is done with arrays, the variable is the index.
                     number = Math.round(numberList[number]);
+                    alert(number);
                     number = number.toString(16);
+                    alert(number);
                     while (number.length < digits) {
                         number = "0" + number;
                     }
+                    alert(number);
                     result += number;
                 }
-                alert((prefix || "") + result);
                 return (prefix || "") + result;
             }
             function keyResponse() {
