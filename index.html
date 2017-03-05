@@ -45,6 +45,9 @@
                 setTimeout(function() {clearInterval(timer);}, 12500);
             })
             document.addEventListener("keydown", function(event) {  // This is for when a key is pressed down. This is continually called.
+                if (checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
+                    event.preventDefault();
+                }
                 document.getElementById("keys").innerHTML = "The keyCode is: " + event.keyCode;
                 keys[String(event.keyCode)] = true;
                 if (keys["pressed"] !== true) {  // only called when nothing else is pressed
