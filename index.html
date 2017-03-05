@@ -15,7 +15,7 @@
             var entityNumber = 1;
             var entities = [];
             var Entity = function(specs) {
-                this.appearance = {"width": "2em", "height": "2em", "background": "black"};
+                this.appearance = {"width": "2em", "height": "2em", "background-color": "black"};
                 this.position = {"position": "absolute", "left": 30*Math.random()+"em", "top": 30*Math.random()+"em"};
                 this.ID = "e" + entityNumber;
                 entityNumber++;
@@ -55,7 +55,7 @@
             document.addEventListener("keyup", function(event) {  // This is when a key is let up.
                 keys[String(event.keyCode)] = false;
                 if (event.keyCode == 32) {  // space bar
-                    entities.push(new Entity({"appearance": {'background': String(hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, '#'))}}));
+                    entities.push(new Entity({"appearance": {'background-color': String(hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, '#'))}}));
                 }
                 var trueFalse = false;
                 for (var key in keys) {
