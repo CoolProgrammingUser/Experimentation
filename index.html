@@ -55,7 +55,7 @@
             document.addEventListener("keyup", function(event) {  // This is when a key is let up.
                 keys[String(event.keyCode)] = false;
                 if (event.keyCode == 32) {  // space bar
-                    entities.push(new Entity({"appearance": {"background": hexSet([0,0,0], 2, "#")}}));//hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, "#")}}));
+                    entities.push(new Entity({"appearance": {"background": hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, "#")}}));
                 }
                 var trueFalse = false;
                 for (var key in keys) {
@@ -78,6 +78,7 @@
             }
             function hexSet(numberList, digits, prefix) {  // prefix is optional
                 var result = "";
+                alert(numberList + "\n" + numberList.length);
                 numberList.forEach(function(number) {  // When this is done with arrays, the variable is the index.
                     number = Math.round(numberList[number]);
                     number = number.toString(16);
