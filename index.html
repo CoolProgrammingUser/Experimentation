@@ -78,16 +78,12 @@
             }
             function hexSet(numberList, digits, prefix) {  // prefix is optional
                 var result = "";
-                alert(numberList);
-                for (var number in numberList) {  // When this is done with arrays, the variable is the index.
+                numberList.forEach(function(number) {  // When this is done with arrays, the variable is the index.
                     number = Math.round(numberList[number]);
-                    alert(number);
                     number = number.toString(16);
-                    alert(number);
                     while (number.length < digits) {
                         number = "0" + number;
                     }
-                    alert(number);
                     result += number;
                 }
                 return (prefix || "") + result;
