@@ -61,11 +61,11 @@
                     entities.push(new Entity({"appearance": {"background": hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, "#")}}));
                 }
                 var trueFalse = false;
-                for (var key in keys) {
-                    if (keys[key] && key !== "pressed") {  // Is another key pressed (and is it not named pressed)?
+                keys.forEach(function(value, key) {
+                    if (value && key !== "pressed") {  // Is another key pressed (and is it not named pressed)?
                         trueFalse = true;
                     }
-                }
+                });
                 if (trueFalse !== true) {
                     keys.pressed = false;
                     clearInterval(tester);
@@ -75,8 +75,8 @@
                 document.getElementById("mousePosition").innerHTML = "The mouse position is: (" + event.pageX + ", " + event.pageY + ")";
             })
             function addStyles(ID, styles) {
-                for (var style in styles) {
-                    document.getElementById(ID).style[style] = styles[style];
+                styles.forEach(function(attribute, style) {
+                    document.getElementById(ID).style[style] = attribute;
                 }
             }
             function hexSet(numberList, digits, prefix) {  // prefix is optional
@@ -91,8 +91,8 @@
                 return (prefix || "") + result;
             }
             function keyResponse() {
-                for (var key in keys) {
-                    if (keys[key] == true) {
+                keys.forEach(function(value, key) {
+                    if (value == true) {
                         switch(Number(key)) {
                             case 37:  // left arrow key
                                 position.left--;
@@ -108,7 +108,7 @@
                                 break;
                         }
                     }
-                }
+                });
                 document.getElementById("circle").style.left = position.left/10 + "em";
                 document.getElementById("circle").style.top = position.top/10 + "em";
                 // number + string = string; String(number) and number.toString() can convert numbers to strings.
@@ -161,7 +161,6 @@
                 rawFile.send(null);
                 */
             }
-            document.designMode = "on";
         </script>
         <style>
             a {
@@ -194,9 +193,6 @@
         </style>
     </head>
     <body>
-        <p>
-            Trial number = 0
-        </p>
         <div id="circle">
         </div>
         <p id="fact">
@@ -215,14 +211,14 @@
             The keyCode is: 
         </p>
         <p id="mousePosition">
-            The mouse postition is: ( , )
+            The mouse position is: ( , )
         </p>
         <p id="timer">
         </p>
         <footer class="site-footer">
-            <a href="https://github.com/CoolProgrammingUser/Experimentation" class="btn">View on GitHub</a>
-            <a href="https://github.com/CoolProgrammingUser/Experimentation/zipball/master" class="btn">Download .zip</a>
-            <a href="https://github.com/CoolProgrammingUser/Experimentation/tarball/master" class="btn">Download .tar.gz</a>
+            <a href="https://github.com/CoolProgrammingUser/Experimentation">View on GitHub</a>
+            <a href="https://github.com/CoolProgrammingUser/Experimentation/zipball/master">Download .zip</a>
+            <a href="https://github.com/CoolProgrammingUser/Experimentation/tarball/master">Download .tar.gz</a>
             <p>
                 <a href="https://github.com/CoolProgrammingUser/Experimentation">Experimentation</a>
                 is maintained by
