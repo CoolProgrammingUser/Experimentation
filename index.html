@@ -43,6 +43,10 @@
             window.addEventListener("load", function() {  // This is what runs when the page loads; equivalent to <body onload=aFunction()>
                 setTimeout(surprise, 3000);
                 setTimeout(function() {clearInterval(timer);}, 12500);
+                getId("design").addEventListener("click", function(click) {
+                    click.preventDefault();
+                    document.designMode = document.designMode=="off" ? "on" : "off";
+                });
             })
             document.addEventListener("keydown", function(event) {  // This is for when a key is pressed down. This is continually called.
                 if (document.designMode != "on" && checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
@@ -206,6 +210,9 @@
         </p>
         <button onClick="check()">
             Check
+        </button>
+        <button id="design">
+            Design Mode
         </button>
         <p id="keys">
             The keyCode is: 
