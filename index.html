@@ -11,7 +11,7 @@
             var timer;
             var intervals = {};  // This isn't doing what I want it to do.
             var keys = {};
-            var position = {left:200, top:50}; // This should be the same as the left and top values for #circle.
+            var position = {left:200, top:100}; // This should be the same as the left and top values for #circle.
             var entityNumber = 1;
             var entities = [];
             var Entity = function(specs) {
@@ -145,7 +145,7 @@
                         if(rawFile.status === 200 || rawFile.status == 0) {
                             var allText = rawFile.responseText;  // sets allText to a single string of the whole file
                             allText = allText.split(/\r\n|\n/);  // sets allText to an array of lines of text
-                            document.getElementById("number").innerHTML = allText[1];
+                            document.getElementById("number").innerHTML = allText[Math.round(Math.random()*3)];
                         }
                     }
                 }
@@ -181,7 +181,7 @@
             #circle {
                 position: absolute;
                 left: 20em;
-                top: 5em;
+                top: 10em;
                 background: red;
                 width: 2em;
                 height: 2em;
