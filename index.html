@@ -52,11 +52,11 @@
                 addStyles(this.ID, this.appearance);
                 addStyles(this.ID, this.position);
             }
+            /*
             S.listen("design", "click", function(click) {
                 click.preventDefault();
                 document.designMode = document.designMode=="off" ? "on" : "off";
             });
-            /*
             document.addEventListener("keydown", function(event) {  // This is for when a key is pressed down. This is continually called.
                 if (document.designMode != "on" && S.checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
                     event.preventDefault();
