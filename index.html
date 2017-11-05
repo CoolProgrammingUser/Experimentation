@@ -16,7 +16,7 @@
                 messagingSenderId: "705640376450"
             });
         </script>
-        <script src="https://epicenterprograms.github.io/standards/behavior.js"></script>
+        <!-- <script src="https://epicenterprograms.github.io/standards/behavior.js"></script> -->
         <script>
             //// var S = Standards;
             var tester;
@@ -26,6 +26,7 @@
             var entityNumber = 1;
             var entities = [];
             var user;
+            var db = firebase.firestore();
             var Entity = function(specs) {
                 this.appearance = {"width": "2em", "height": "2em", "background": "black"};
                 this.position = {"position": "absolute", "left": 30*Math.random()+"em", "top": 30*Math.random()+"em"};
@@ -133,15 +134,20 @@
             function signOut() {
                 firebase.auth().signOut();
             }
-            window.addEventListener("load", function() {
-                /*
-                firebase.auth().getRedirectResult().then(function(result) {
-                    user = result.user;
-                    document.getElementById("result").textContent = user;
-                }).catch(function(error) {
-                    console.error(error.message);
+            function test1() {
+                db.collection("testCollection").doc("testDoc").set({
+                    message: "This is a test.",
+                    fact: "I am awesome."
+                }).then(function() {
+                    document.getElementById("result").textContent = db.collection("testCollection").doc("testDoc").data().message;
                 });
-                */
+            }
+            function test2() {
+                db.collection("testCollection").doc("testDoc").delete().then(function() {
+                    document.getElementById("result").textContent = db.collection("testCollection").doc("testDoc").data().message;
+                });
+            }
+            window.addEventListener("load", function() {
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {  // if the user is signed in
                         document.getElementById("signIn").style.display = "none";
@@ -201,10 +207,10 @@
             <p id="result">
                 Result
             </p>
-            <button onclick="">
+            <button onclick="test1()">
                 Test 1
             </button>
-            <button onclick="">
+            <button onclick="test2()">
                 Test 2
             </button>
             <br>
