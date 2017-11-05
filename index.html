@@ -16,9 +16,9 @@
                 messagingSenderId: "705640376450"
             });
         </script>
-        <script src="https://epicenterprograms.github.io/standards/behavior.js"></script>
+        <!-- <script src="https://epicenterprograms.github.io/standards/behavior.js"></script> -->
         <script>
-            var S = Standards;
+            //// var S = Standards;
             var tester;
             var intervals = {};  //// This isn't doing what I want it to do.
             var keys = {};
@@ -56,6 +56,7 @@
                 click.preventDefault();
                 document.designMode = document.designMode=="off" ? "on" : "off";
             });
+            /*
             document.addEventListener("keydown", function(event) {  // This is for when a key is pressed down. This is continually called.
                 if (document.designMode != "on" && S.checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
                     event.preventDefault();
@@ -83,6 +84,7 @@
                     clearInterval(tester);
                 }
             });
+            */
             document.addEventListener("mousedown", function(event) {  // This is when the mouse is pressed.
                 document.getElementById("mousePosition").innerHTML = "The mouse position is: (" + event.pageX + ", " + event.pageY + ")";
             });
@@ -128,10 +130,10 @@
             function test() {
                 firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
             }
-            S.onLoad(function() {
+            window.addEventListener("load", function() {
                 firebase.auth().getRedirectResult().then(function(result) {
                     user = result.user;
-                    S.getId("result").textContent = user;
+                    document.getElementById("result").textContent = user;
                 }).catch(function(error) {
                     console.error(error.message);
                 });
