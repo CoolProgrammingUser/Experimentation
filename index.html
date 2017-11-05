@@ -136,27 +136,35 @@
                 firebase.auth().signOut();
             }
             function test1() {
-                db.collection("testCollection").doc("testDoc").set({
-                    message: "This is a test.",
-                    fact: "I am awesome."
-                }).then(function() {
-                    db.collection("testCollection").doc("testDoc").get().then(
-                        doc => document.getElementById("result").textContent = doc.data().message
-                    );
-                });
+                if (user) {
+                    db.collection("testCollection").doc("testDoc").set({
+                        message: "This is a test.",
+                        fact: "I am awesome."
+                    }).then(function() {
+                        db.collection("testCollection").doc("testDoc").get().then(
+                            doc => document.getElementById("result").textContent = doc.data().message
+                        );
+                    });
+                } else {
+                    document.getElementById("result").textContent = "You aren't allowed to store information.";
+                }
             }
             function test2() {
-                db.collection("testCollection").doc("testDoc").delete().then(function() {
-                    db.collection("testCollection").doc("testDoc").get().then(
-                        doc => document.getElementById("result").textContent = doc.data().message
-                    ).catch(
-                        () => document.getElementById("result").textContent = "No data"
-                    );
-                });
+                if (user) {
+                    db.collection("testCollection").doc("testDoc").delete().then(function() {
+                        db.collection("testCollection").doc("testDoc").get().then(
+                            doc => document.getElementById("result").textContent = doc.data().message
+                        ).catch(
+                            () => document.getElementById("result").textContent = "No data"
+                        );
+                    });
+                } else {
+                    document.getElementById("result").textContent = "You aren't allowed to delete information.";
+                }
             }
             window.addEventListener("load", function() {
-                firebase.auth().onAuthStateChanged(function(user) {
-                    if (user) {  // if the user is signed in
+                firebase.auth().onAuthStateChanged(function(person) {
+                    if (person) {  // if the user is signed in
                         document.getElementById("signIn").style.display = "none";
                         document.getElementById("signUp").style.display = "none";
                         document.getElementById("signOut").style.display = "inline-block";
@@ -167,6 +175,7 @@
                         document.getElementById("signOut").style.display = "none";
                         document.getElementById("result").textContent = "Result";
                     }
+                    user = person;
                 });
             });
         </script>
