@@ -55,10 +55,6 @@
                 addStyles(this.ID, this.position);
             }
             /*
-            S.listen("design", "click", function(click) {
-                click.preventDefault();
-                document.designMode = document.designMode=="off" ? "on" : "off";
-            });
             document.addEventListener("keydown", function(event) {  // This is for when a key is pressed down. This is continually called.
                 if (document.designMode != "on" && S.checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
                     event.preventDefault();
@@ -177,6 +173,10 @@
                     }
                     user = person;
                 });
+                document.getElementById("design").addEventListener("click", function(click) {
+                    click.preventDefault();
+                    document.designMode = document.designMode=="off" ? "on" : "off";
+                });
             });
         </script>
         <link rel="stylesheet" href="https://epicenterprograms.github.io/standards/formatting/foundation.css"/>
@@ -188,6 +188,7 @@
                 text-align: center;
             }
             #circle {
+                display: none;
                 position: absolute;
                 left: 20em;
                 top: 10em;
@@ -207,7 +208,7 @@
             <button id="signIn" onclick="signIn()">
                 Log in
             </button>
-            <button id="signUp">
+            <button id="signUp" onclick="signIn()">
                 Register
             </button>
             <button id="signOut" onclick="signOut()">
@@ -242,8 +243,8 @@
             </p>
         </main>
         <footer>
-            <a href="https://github.com/EpicenterPrograms/experimentation">View on GitHub</a>
-            <a href="https://github.com/EpicenterPrograms/experimentation/zipball/master">Download .zip</a>
+            <a href="https://github.com/EpicenterPrograms/experimentation">View on GitHub</a>&emsp;
+            <a href="https://github.com/EpicenterPrograms/experimentation/zipball/master">Download .zip</a>&emsp;
             <a href="https://github.com/EpicenterPrograms/experimentation/tarball/master">Download .tar.gz</a>
             <p>
                 <a href="https://github.com/EpicenterPrograms/experimentation">Experimentation</a>
