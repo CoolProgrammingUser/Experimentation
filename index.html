@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<!-- Don't let GitHub put your indent mode to tabs. -->
 <html lang="en-us" class="html-class">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Experimentation</title>
+        <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+        <script>
+            // initializes Firebase
+            firebase.initializeApp({
+                apiKey: "AIzaSyDWDEU1NcHtuAi-Fg-ahu-o1CRHwAhVo_s",
+                authDomain: "epicenterresources.firebaseapp.com",
+                databaseURL: "https://epicenterresources.firebaseio.com",
+                projectId: "epicenterresources",
+                storageBucket: "",
+                messagingSenderId: "705640376450"
+            });
+        </script>
         <script src="https://epicenterprograms.github.io/standards/behavior.js"></script>
         <script>
             var S = Standards;
@@ -14,6 +25,7 @@
             var position = {left:200, top:100}; // This should be the same as the left and top values for #circle.
             var entityNumber = 1;
             var entities = [];
+            var user;
             var Entity = function(specs) {
                 this.appearance = {"width": "2em", "height": "2em", "background": "black"};
                 this.position = {"position": "absolute", "left": 30*Math.random()+"em", "top": 30*Math.random()+"em"};
@@ -114,15 +126,21 @@
                 // number + string = string; String(number) and number.toString() can convert numbers to strings.
             }
             function test() {
-                
+                firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
             }
             S.onLoad(function() {
-                
+                firebase.auth().getRedirectResult().then(function(result) {
+                    user = result.user;
+                    S.getId("result").textContent = user;
+                }).catch(function(error) {
+                    console.error(error.message);
+                });
             });
         </script>
         <link rel="stylesheet" href="https://epicenterprograms.github.io/standards/formatting/foundation.css"/>
         <style>
             footer {
+                margin-top: 4%;
                 border: .1em solid yellow;
                 background: #ffffcc;
                 text-align: center;
