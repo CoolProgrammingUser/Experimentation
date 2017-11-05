@@ -149,8 +149,8 @@
                 db.collection("testCollection").doc("testDoc").delete().then(function() {
                     db.collection("testCollection").doc("testDoc").get().then(
                         doc => document.getElementById("result").textContent = doc.message
-                    ).catch(filler =>
-                        document.getElementById("result").textContent = "No data";
+                    ).catch(
+                        filler => document.getElementById("result").textContent = "No data";
                     );
                 });
             }
