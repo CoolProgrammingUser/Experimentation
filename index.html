@@ -127,15 +127,33 @@
                 document.getElementById("circle").style.top = position.top/10 + "em";
                 // number + string = string; String(number) and number.toString() can convert numbers to strings.
             }
-            function test() {
+            function signIn() {
                 firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
             }
+            function signOut() {
+                firebase.auth().signOut();
+            }
             window.addEventListener("load", function() {
+                /*
                 firebase.auth().getRedirectResult().then(function(result) {
                     user = result.user;
                     document.getElementById("result").textContent = user;
                 }).catch(function(error) {
                     console.error(error.message);
+                });
+                */
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {  // if the user is signed in
+                        document.getElementById("signIn").style.display = "none";
+                        document.getElementById("signUp").style.display = "none";
+                        document.getElementById("signOut").style.display = "inline-block";
+                        document.getElementById("result").textContent = user.displayName;
+                    } else {
+                        document.getElementById("signIn").style.display = "inline-block";
+                        document.getElementById("signUp").style.display = "inline-block";
+                        document.getElementById("signOut").style.display = "none";
+                        document.getElementById("result").textContent = "Result";
+                    }
                 });
             });
         </script>
@@ -163,6 +181,17 @@
         </style>
     </head>
     <body>
+        <div class="login-section">
+            <button id="signIn" onclick="signIn()">
+                Log in
+            </button>
+            <button id="signUp">
+                Register
+            </button>
+            <button id="signOut" onclick="signOut()">
+                Log out
+            </button>
+        </div>
         <h1 class="main-title">
             Experimentation
         </h1>
@@ -172,8 +201,11 @@
             <p id="result">
                 Result
             </p>
-            <button onclick="test()">
-                Test
+            <button onclick="">
+                Test 1
+            </button>
+            <button onclick="">
+                Test 2
             </button>
             <br>
             <br>
