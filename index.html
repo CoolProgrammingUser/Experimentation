@@ -150,7 +150,7 @@
                     db.collection("testCollection").doc("testDoc").get().then(
                         doc => document.getElementById("result").textContent = doc.message
                     ).catch(
-                        filler => document.getElementById("result").textContent = "No data";
+                        filler => document.getElementById("result").textContent = "No data"
                     );
                 });
             }
