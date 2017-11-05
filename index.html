@@ -3,13 +3,13 @@
 <html lang="en-us" class="html-class">
     <head>
         <meta charset="UTF-8">
-        <title>Experimentation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Experimentation</title>
         <script src="https://epicenterprograms.github.io/standards/behavior.js"></script>
         <script>
+            var S = Standards;
             var tester;
-            var timer;
-            var intervals = {};  // This isn't doing what I want it to do.
+            var intervals = {};  //// This isn't doing what I want it to do.
             var keys = {};
             var position = {left:200, top:100}; // This should be the same as the left and top values for #circle.
             var entityNumber = 1;
@@ -40,16 +40,12 @@
                 addStyles(this.ID, this.appearance);
                 addStyles(this.ID, this.position);
             }
-            window.addEventListener("load", function() {  // This is what runs when the page loads; equivalent to <body onload=aFunction()>
-                setTimeout(surprise, 3000);
-                setTimeout(function() {clearInterval(timer);}, 12500);
-                getId("design").addEventListener("click", function(click) {
-                    click.preventDefault();
-                    document.designMode = document.designMode=="off" ? "on" : "off";
-                });
-            })
+            S.listen("design", "click", function(click) {
+                click.preventDefault();
+                document.designMode = document.designMode=="off" ? "on" : "off";
+            });
             document.addEventListener("keydown", function(event) {  // This is for when a key is pressed down. This is continually called.
-                if (document.designMode != "on" && checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
+                if (document.designMode != "on" && S.checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
                     event.preventDefault();
                 }
                 document.getElementById("keys").innerHTML = "The keyCode is: " + event.keyCode;
@@ -58,7 +54,7 @@
                     keys.pressed = true;
                     tester = setInterval(keyResponse, 10);
                 }
-            })
+            });
             document.addEventListener("keyup", function(event) {  // This is when a key is let up.
                 keys[String(event.keyCode)] = false;
                 if (event.keyCode == 32) {  // space bar
@@ -74,10 +70,10 @@
                     keys.pressed = false;
                     clearInterval(tester);
                 }
-            })
+            });
             document.addEventListener("mousedown", function(event) {  // This is when the mouse is pressed.
                 document.getElementById("mousePosition").innerHTML = "The mouse position is: (" + event.pageX + ", " + event.pageY + ")";
-            })
+            });
             function addStyles(ID, styles) {
                 styles.forEach(function(attribute, style) {
                     document.getElementById(ID).style[style] = attribute;
@@ -117,63 +113,15 @@
                 document.getElementById("circle").style.top = position.top/10 + "em";
                 // number + string = string; String(number) and number.toString() can convert numbers to strings.
             }
-            function surprise() {
-                // var timeText = document.getElementById("timer").innerHTML;  <-- doesn't work for assigning the inner HTML
-                document.getElementById("timer").innerHTML = "Surprise!";
-                timer=setInterval(function(){document.getElementById("timer").innerHTML=document.getElementById("timer").innerHTML+"!";}, 1000);
+            function test() {
+                
             }
-            function doStuff() {
-                if (document.getElementById("fact").innerHTML.indexOf("I am so cool.") !== -1) {
-                    document.getElementById("fact").innerHTML = "I am so awesome.";
-                } else {
-                    document.getElementById("fact").innerHTML = "I am so cool.";
-                }
-            }
-            function check() {
-                /*
-                var request = new XMLHttpRequest();
-                request.open("GET", "https://coolprogramminguser.github.io/Experimentation/Text.txt");
-                request.send();
-                var str = request.responseText;
-                document.getElementById("number").innerHTML = str.words;
-                */
-                // To read a text file:
-                var rawFile = new XMLHttpRequest();
-                rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/Text.txt");
-                rawFile.onreadystatechange = function () {
-                    if(rawFile.readyState === 4) {
-                        if(rawFile.status === 200 || rawFile.status == 0) {
-                            var allText = rawFile.responseText;  // sets allText to a single string of the whole file
-                            allText = allText.split(/\r\n|\n/);  // sets allText to an array of lines of text
-                            document.getElementById("number").innerHTML = allText[Math.round(Math.random()*2)];
-                        }
-                    }
-                }
-                rawFile.send(null);  // This is necessary even though it doesn't make sense.
-                /*
-                // To read a JSON:
-                var rawFile = new XMLHttpRequest();
-                rawFile.open("GET", "https://coolprogramminguser.github.io/Experimentation/JSON.json", false);
-                rawFile.onreadystatechange = function () {
-                    if(rawFile.readyState === 4) {
-                        if(rawFile.status === 200 || rawFile.status == 0) {
-                            var allText = JSON.parse(rawFile.responseText);  // turns the string into a useable object
-                            document.getElementById("number").innerHTML = allText["number"];
-                        }
-                    }
-                }
-                rawFile.send(null);
-                */
-            }
+            S.onLoad(function() {
+                
+            });
         </script>
-        <link rel="stylesheet" href="https://epicenterprograms.github.io/standards/formatting.css"/>
+        <link rel="stylesheet" href="https://epicenterprograms.github.io/standards/formatting/foundation.css"/>
         <style>
-            a {
-                text-decoration: none;
-            }
-            a:hover {
-                text-decoration: underline;
-            }
             footer {
                 border: .1em solid yellow;
                 background: #ffffcc;
@@ -183,6 +131,7 @@
                 position: absolute;
                 left: 20em;
                 top: 10em;
+                z-index: 1em;
                 background: red;
                 width: 2em;
                 height: 2em;
@@ -190,10 +139,6 @@
             }
             #circle:hover {
                 border-radius: 0em;
-            }
-            #timer {
-                color: blue;
-                font-size: 4em;
             }
         </style>
     </head>
@@ -204,17 +149,11 @@
         <main>
             <div id="circle">
             </div>
-            <p id="fact">
-                I am so cool.
+            <p id="result">
+                Result
             </p>
-            <button onClick="doStuff()">
-                Change fact
-            </button>
-            <p id="number">
-                0
-            </p>
-            <button onClick="check()">
-                Check
+            <button onclick="test()">
+                Test
             </button>
             <br>
             <br>
@@ -227,17 +166,15 @@
             <p id="mousePosition">
                 The mouse position is: ( , )
             </p>
-            <p id="timer">
-            </p>
         </main>
-        <footer class="site-footer">
-            <a href="https://github.com/CoolProgrammingUser/Experimentation">View on GitHub</a>
-            <a href="https://github.com/CoolProgrammingUser/Experimentation/zipball/master">Download .zip</a>
-            <a href="https://github.com/CoolProgrammingUser/Experimentation/tarball/master">Download .tar.gz</a>
+        <footer>
+            <a href="https://github.com/EpicenterPrograms/experimentation">View on GitHub</a>
+            <a href="https://github.com/EpicenterPrograms/experimentation/zipball/master">Download .zip</a>
+            <a href="https://github.com/EpicenterPrograms/experimentation/tarball/master">Download .tar.gz</a>
             <p>
-                <a href="https://github.com/CoolProgrammingUser/Experimentation">Experimentation</a>
+                <a href="https://github.com/EpicenterPrograms/experimentation">Experimentation</a>
                 is maintained by
-                <a href="https://github.com/CoolProgrammingUser" title="One awesome dude">CoolProgrammingUser</a>.
+                <a href="https://github.com/EpicenterPrograms" title="One awesome company">Epicenter</a>.
             </p>
             <p>
                 This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.
