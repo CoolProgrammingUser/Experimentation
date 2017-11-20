@@ -1,4 +1,4 @@
 # Experimentation
-I'm learning how to work with GitHub pages.
+This tests functionalities that can't be executed locally.
 
-My website is [here](https://epicenterprograms.github.io/experimentation/ "Awesomeness").
+The website is [here](https://epicenterprograms.github.io/experimentation/ "Awesomeness").
