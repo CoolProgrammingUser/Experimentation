@@ -17,9 +17,9 @@
                 messagingSenderId: "705640376450"
             });
         </script>
-        <script src="https://epicenterprograms.github.io/standards/behavior.js"></script>
+        <script src="file:///C:/Users/Robert/Documents/GitHub/standards/behavior.js"></script>
         <script>
-            //// var S = Standards;
+            var S = Standards;
             var tester;
             var intervals = {};  //// This isn't doing what I want it to do.
             var keys = {};
@@ -126,12 +126,20 @@
                 // number + string = string; String(number) and number.toString() can convert numbers to strings.
             }
             function signIn() {
-                firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+				S.storage.server.signIn();
+                //// firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
             }
+			function signUp() {
+				S.storage.server.signUp();
+			}
             function signOut() {
-                firebase.auth().signOut();
+				S.storage.server.signOut();
+                //// firebase.auth().signOut();
             }
             function test1() {
+				S.storage.server.store("message", "This is a test.");
+				S.getId("result").textContent = S.storage.server.recall("message");
+				/*
                 if (user) {
                     db.collection("testCollection").doc("testDoc").set({
                         message: "This is a test.",
@@ -144,8 +152,12 @@
                 } else {
                     document.getElementById("result").textContent = "You aren't allowed to store information.";
                 }
+				*/
             }
             function test2() {
+				S.storage.server.forget("message");
+				S.getId("result").textContent = S.storage.server.recall("message");
+				/*
                 if (user) {
                     db.collection("testCollection").doc("testDoc").delete().then(function() {
                         db.collection("testCollection").doc("testDoc").get().then(
@@ -157,7 +169,9 @@
                 } else {
                     document.getElementById("result").textContent = "You aren't allowed to delete information.";
                 }
+				*/
             }
+			S.storage.server.defaultLocation = "testCollection/testDoc";
             window.addEventListener("load", function() {
                 firebase.auth().onAuthStateChanged(function(person) {
                     if (person) {  // if the user is signed in
@@ -171,7 +185,8 @@
                         document.getElementById("signOut").style.display = "none";
                         document.getElementById("result").textContent = "Result";
                     }
-                    user = person;
+                    //// user = person;
+					Standards.storage.server.user = person;
                 });
                 document.getElementById("design").addEventListener("click", function(click) {
                     click.preventDefault();
@@ -208,7 +223,7 @@
             <button id="signIn" onclick="signIn()">
                 Log in
             </button>
-            <button id="signUp" onclick="signIn()">
+            <button id="signUp" onclick="signUp()">
                 Register
             </button>
             <button id="signOut" onclick="signOut()">
