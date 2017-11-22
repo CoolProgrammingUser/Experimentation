@@ -1,274 +1,264 @@
 <!DOCTYPE html>
 <html lang="en-us" class="html-class">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Experimentation</title>
-        <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-firestore.js"></script>
-        <script>
-            // initializes Firebase
-            firebase.initializeApp({
-                apiKey: "AIzaSyDWDEU1NcHtuAi-Fg-ahu-o1CRHwAhVo_s",
-                authDomain: "epicenterresources.firebaseapp.com",
-                databaseURL: "https://epicenterresources.firebaseio.com",
-                projectId: "epicenterresources",
-                storageBucket: "",
-                messagingSenderId: "705640376450"
-            });
-        </script>
-        <script src="https://epicenterprograms.github.io/standards/behavior.js"></script>
-        <script>
-            var S = Standards;
-            var tester;
-            var intervals = {};  //// This isn't doing what I want it to do.
-            var keys = {};
-            var position = {left:200, top:100}; // This should be the same as the left and top values for #circle.
-            var entityNumber = 1;
-            var entities = [];
-            var user;
-            var db = firebase.firestore();
-            var Entity = function(specs) {
-                this.appearance = {"width": "2em", "height": "2em", "background": "black"};
-                this.position = {"position": "absolute", "left": 30*Math.random()+"em", "top": 30*Math.random()+"em"};
-                this.ID = "e" + entityNumber;
-                entityNumber++;
-                for (var specification in specs) {
-                    switch(specification) {
-                        case "appearance":
-                            for (var item in specs.appearance) {
-                                this.appearance[item] = specs.appearance[item];
-                            }
-                            break;
-                        case "position":
-                            for (var item in specs.position) {
-                                this.position[item] = specs.position[item];
-                            }
-                            break;
-                    }
-                }
-                var div = document.createElement("div");
-                div.id = this.ID;
-                document.body.appendChild(div);  // Actually makes the div appear.
-                // Remove via div.parentNode.removeChild(div) or probably document.body.removeChild(div)
-                addStyles(this.ID, this.appearance);
-                addStyles(this.ID, this.position);
-            }
-            /*
-            document.addEventListener("keydown", function(event) {  // This is for when a key is pressed down. This is continually called.
-                if (document.designMode != "on" && S.checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
-                    event.preventDefault();
-                }
-                document.getElementById("keys").innerHTML = "The keyCode is: " + event.keyCode;
-                keys[String(event.keyCode)] = true;
-                if (keys["pressed"] !== true) {  // only called when nothing else is pressed
-                    keys.pressed = true;
-                    tester = setInterval(keyResponse, 10);
-                }
-            });
-            document.addEventListener("keyup", function(event) {  // This is when a key is let up.
-                keys[String(event.keyCode)] = false;
-                if (event.keyCode == 32) {  // space bar
-                    entities.push(new Entity({"appearance": {"background": hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, "#")}}));
-                }
-                var trueFalse = false;
-                keys.forEach(function(value, key) {
-                    if (value && key !== "pressed") {  // Is another key pressed (and is it not named pressed)?
-                        trueFalse = true;
-                    }
-                });
-                if (trueFalse !== true) {
-                    keys.pressed = false;
-                    clearInterval(tester);
-                }
-            });
-            */
-            document.addEventListener("mousedown", function(event) {  // This is when the mouse is pressed.
-                document.getElementById("mousePosition").innerHTML = "The mouse position is: (" + event.pageX + ", " + event.pageY + ")";
-            });
-            function addStyles(ID, styles) {
-                styles.forEach(function(attribute, style) {
-                    document.getElementById(ID).style[style] = attribute;
-                });
-            }
-            function hexSet(numberList, digits, prefix) {  // prefix is optional
-                var result = "";
-                numberList.forEach(function(number) {
-                    number = number.toString(16);
-                    while (number.length < digits) {
-                        number = "0" + number;
-                    }
-                    result += number;
-                });
-                return (prefix || "") + result;
-            }
-            function keyResponse() {
-                keys.forEach(function(value, key) {
-                    if (value == true) {
-                        switch(Number(key)) {
-                            case 37:  // left arrow key
-                                position.left--;
-                                break;
-                            case 38:  // up arrow key
-                                position.top--;
-                                break;
-                            case 39:  // right arrow key
-                                position.left++;
-                                break;
-                            case 40:  // down arrow key
-                                position.top++;
-                                break;
-                        }
-                    }
-                });
-                document.getElementById("circle").style.left = position.left/10 + "em";
-                document.getElementById("circle").style.top = position.top/10 + "em";
-                // number + string = string; String(number) and number.toString() can convert numbers to strings.
-            }
-            function signIn() {
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Experimentation</title>
+		<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-firestore.js"></script>
+		<script src="https://epicenterprograms.github.io/standards/behavior/firebaseinit.js"></script>
+		<script src="https://epicenterprograms.github.io/standards/behavior.js"></script>
+		<script>
+			var S = Standards;
+			var tester;
+			var intervals = {};  //// This isn't doing what I want it to do.
+			var keys = {};
+			var position = {left:200, top:100}; // This should be the same as the left and top values for #circle.
+			var entityNumber = 1;
+			var entities = [];
+			var user;
+			var db = firebase.firestore();
+			var Entity = function(specs) {
+				this.appearance = {"width": "2em", "height": "2em", "background": "black"};
+				this.position = {"position": "absolute", "left": 30*Math.random()+"em", "top": 30*Math.random()+"em"};
+				this.ID = "e" + entityNumber;
+				entityNumber++;
+				for (var specification in specs) {
+					switch(specification) {
+						case "appearance":
+							for (var item in specs.appearance) {
+								this.appearance[item] = specs.appearance[item];
+							}
+							break;
+						case "position":
+							for (var item in specs.position) {
+								this.position[item] = specs.position[item];
+							}
+							break;
+					}
+				}
+				var div = document.createElement("div");
+				div.id = this.ID;
+				document.body.appendChild(div);  // Actually makes the div appear.
+				// Remove via div.parentNode.removeChild(div) or probably document.body.removeChild(div)
+				addStyles(this.ID, this.appearance);
+				addStyles(this.ID, this.position);
+			}
+			/*
+			document.addEventListener("keydown", function(event) {  // This is for when a key is pressed down. This is continually called.
+				if (document.designMode != "on" && S.checkAll(event.keyCode, "==", [37,38,39,40,32], "||")) {
+					event.preventDefault();
+				}
+				document.getElementById("keys").innerHTML = "The keyCode is: " + event.keyCode;
+				keys[String(event.keyCode)] = true;
+				if (keys["pressed"] !== true) {  // only called when nothing else is pressed
+					keys.pressed = true;
+					tester = setInterval(keyResponse, 10);
+				}
+			});
+			document.addEventListener("keyup", function(event) {  // This is when a key is let up.
+				keys[String(event.keyCode)] = false;
+				if (event.keyCode == 32) {  // space bar
+					entities.push(new Entity({"appearance": {"background": hexSet([255*Math.round(Math.random()), 255*Math.round(Math.random()), 255*Math.round(Math.random())], 2, "#")}}));
+				}
+				var trueFalse = false;
+				keys.forEach(function(value, key) {
+					if (value && key !== "pressed") {  // Is another key pressed (and is it not named pressed)?
+						trueFalse = true;
+					}
+				});
+				if (trueFalse !== true) {
+					keys.pressed = false;
+					clearInterval(tester);
+				}
+			});
+			*/
+			document.addEventListener("mousedown", function(event) {  // This is when the mouse is pressed.
+				document.getElementById("mousePosition").innerHTML = "The mouse position is: (" + event.pageX + ", " + event.pageY + ")";
+			});
+			function addStyles(ID, styles) {
+				styles.forEach(function(attribute, style) {
+					document.getElementById(ID).style[style] = attribute;
+				});
+			}
+			function hexSet(numberList, digits, prefix) {  // prefix is optional
+				var result = "";
+				numberList.forEach(function(number) {
+					number = number.toString(16);
+					while (number.length < digits) {
+						number = "0" + number;
+					}
+					result += number;
+				});
+				return (prefix || "") + result;
+			}
+			function keyResponse() {
+				keys.forEach(function(value, key) {
+					if (value == true) {
+						switch(Number(key)) {
+							case 37:  // left arrow key
+								position.left--;
+								break;
+							case 38:  // up arrow key
+								position.top--;
+								break;
+							case 39:  // right arrow key
+								position.left++;
+								break;
+							case 40:  // down arrow key
+								position.top++;
+								break;
+						}
+					}
+				});
+				document.getElementById("circle").style.left = position.left/10 + "em";
+				document.getElementById("circle").style.top = position.top/10 + "em";
+				// number + string = string; String(number) and number.toString() can convert numbers to strings.
+			}
+			function signIn() {
 				S.storage.server.signIn();
-                //// firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-            }
+				//// firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+			}
 			function signUp() {
 				S.storage.server.signUp();
 			}
-            function signOut() {
+			function signOut() {
 				S.storage.server.signOut();
-                //// firebase.auth().signOut();
-            }
-            function test1() {
+				//// firebase.auth().signOut();
+			}
+			function test1() {
 				S.storage.server.store("message", "This is a test.");
 				S.storage.server.recall("message", result => {S.getId("result").textContent = result;});
 				/*
-                if (user) {
-                    db.collection("testCollection").doc("testDoc").set({
-                        message: "This is a test.",
-                        fact: "I am awesome."
-                    }).then(function() {
-                        db.collection("testCollection").doc("testDoc").get().then(
-                            doc => document.getElementById("result").textContent = doc.data().message
-                        );
-                    });
-                } else {
-                    document.getElementById("result").textContent = "You aren't allowed to store information.";
-                }
+				if (user) {
+					db.collection("testCollection").doc("testDoc").set({
+						message: "This is a test.",
+						fact: "I am awesome."
+					}).then(function() {
+						db.collection("testCollection").doc("testDoc").get().then(
+							doc => document.getElementById("result").textContent = doc.data().message
+						);
+					});
+				} else {
+					document.getElementById("result").textContent = "You aren't allowed to store information.";
+				}
 				*/
-            }
-            function test2() {
+			}
+			function test2() {
 				S.storage.server.forget("message");
 				S.storage.server.recall("message", result => {S.getId("result").textContent = result;});
 				/*
-                if (user) {
-                    db.collection("testCollection").doc("testDoc").delete().then(function() {
-                        db.collection("testCollection").doc("testDoc").get().then(
-                            doc => document.getElementById("result").textContent = doc.data().message
-                        ).catch(
-                            () => document.getElementById("result").textContent = "No data"
-                        );
-                    });
-                } else {
-                    document.getElementById("result").textContent = "You aren't allowed to delete information.";
-                }
+				if (user) {
+					db.collection("testCollection").doc("testDoc").delete().then(function() {
+						db.collection("testCollection").doc("testDoc").get().then(
+							doc => document.getElementById("result").textContent = doc.data().message
+						).catch(
+							() => document.getElementById("result").textContent = "No data"
+						);
+					});
+				} else {
+					document.getElementById("result").textContent = "You aren't allowed to delete information.";
+				}
 				*/
-            }
+			}
 			S.storage.server.defaultLocation = "testCollection/testDoc";
-            window.addEventListener("load", function() {
-                firebase.auth().onAuthStateChanged(function(person) {
-                    if (person) {  // if the user is signed in
-                        document.getElementById("signIn").style.display = "none";
-                        document.getElementById("signUp").style.display = "none";
-                        document.getElementById("signOut").style.display = "inline-block";
-                        document.getElementById("result").textContent = person.displayName;
-                    } else {
-                        document.getElementById("signIn").style.display = "inline-block";
-                        document.getElementById("signUp").style.display = "inline-block";
-                        document.getElementById("signOut").style.display = "none";
-                        document.getElementById("result").textContent = "Result";
-                    }
-                    //// user = person;
+			window.addEventListener("load", function() {
+				firebase.auth().onAuthStateChanged(function(person) {
+					if (person) {  // if the user is signed in
+						document.getElementById("signIn").style.display = "none";
+						document.getElementById("signUp").style.display = "none";
+						document.getElementById("signOut").style.display = "inline-block";
+						document.getElementById("result").textContent = person.displayName;
+					} else {
+						document.getElementById("signIn").style.display = "inline-block";
+						document.getElementById("signUp").style.display = "inline-block";
+						document.getElementById("signOut").style.display = "none";
+						document.getElementById("result").textContent = "Result";
+					}
+					//// user = person;
 					Standards.storage.server.user = person;
-                });
-                document.getElementById("design").addEventListener("click", function(click) {
-                    click.preventDefault();
-                    document.designMode = document.designMode=="off" ? "on" : "off";
-                });
-            });
-        </script>
-        <link rel="stylesheet" href="https://epicenterprograms.github.io/standards/formatting/foundation.css"/>
-        <style>
-            footer {
-                margin-top: 4%;
-                border: .1em solid yellow;
-                background: #ffffcc;
-                text-align: center;
-            }
-            #circle {
-                display: none;
-                position: absolute;
-                left: 20em;
-                top: 10em;
-                z-index: 1em;
-                background: red;
-                width: 2em;
-                height: 2em;
-                border-radius: 1em;
-            }
-            #circle:hover {
-                border-radius: 0em;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="login-section">
-            <button id="signIn" onclick="signIn()">
-                Log in
-            </button>
-            <button id="signUp" onclick="signUp()">
-                Register
-            </button>
-            <button id="signOut" onclick="signOut()">
-                Log out
-            </button>
-        </div>
-        <h1 class="main-title">
-            Experimentation
-        </h1>
-        <main>
-            <div id="circle">
-            </div>
-            <p id="result">
-                Result
-            </p>
-            <button onclick="test1()">
-                Test 1
-            </button>
-            <button onclick="test2()">
-                Test 2
-            </button>
-            <br>
-            <br>
-            <button id="design">
-                Design mode
-            </button>
-            <p id="keys">
-                The keyCode is: 
-            </p>
-            <p id="mousePosition">
-                The mouse position is: ( , )
-            </p>
-        </main>
-        <footer>
-            <a href="https://github.com/EpicenterPrograms/experimentation">View on GitHub</a>&emsp;
-            <a href="https://github.com/EpicenterPrograms/experimentation/zipball/master">Download .zip</a>&emsp;
-            <a href="https://github.com/EpicenterPrograms/experimentation/tarball/master">Download .tar.gz</a>
-            <p>
-                <a href="https://github.com/EpicenterPrograms/experimentation">Experimentation</a>
-                is maintained by
-                <a href="https://github.com/EpicenterPrograms" title="One awesome company">Epicenter</a>.
-            </p>
-            <p>
-                This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.
-            </p>
-        </footer>
-    </body>
+				});
+				document.getElementById("design").addEventListener("click", function(click) {
+					click.preventDefault();
+					document.designMode = document.designMode=="off" ? "on" : "off";
+				});
+			});
+		</script>
+		<link rel="stylesheet" href="https://epicenterprograms.github.io/standards/formatting/foundation.css"/>
+		<style>
+			footer {
+				margin-top: 4%;
+				border: .1em solid yellow;
+				background: #ffffcc;
+				text-align: center;
+			}
+			#circle {
+				display: none;
+				position: absolute;
+				left: 20em;
+				top: 10em;
+				z-index: 1em;
+				background: red;
+				width: 2em;
+				height: 2em;
+				border-radius: 1em;
+			}
+			#circle:hover {
+				border-radius: 0em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="login-section">
+			<button id="signIn" onclick="signIn()">
+				Log in
+			</button>
+			<button id="signUp" onclick="signUp()">
+				Register
+			</button>
+			<button id="signOut" onclick="signOut()">
+				Log out
+			</button>
+		</div>
+		<h1 class="main-title">
+			Experimentation
+		</h1>
+		<main>
+			<div id="circle">
+			</div>
+			<p id="result">
+				Result
+			</p>
+			<button onclick="test1()">
+				Test 1
+			</button>
+			<button onclick="test2()">
+				Test 2
+			</button>
+			<br>
+			<br>
+			<button id="design">
+				Design mode
+			</button>
+			<p id="keys">
+				The keyCode is: 
+			</p>
+			<p id="mousePosition">
+				The mouse position is: ( , )
+			</p>
+		</main>
+		<footer>
+			<a href="https://github.com/EpicenterPrograms/experimentation">View on GitHub</a>&emsp;
+			<a href="https://github.com/EpicenterPrograms/experimentation/zipball/master">Download .zip</a>&emsp;
+			<a href="https://github.com/EpicenterPrograms/experimentation/tarball/master">Download .tar.gz</a>
+			<p>
+				<a href="https://github.com/EpicenterPrograms/experimentation">Experimentation</a>
+				is maintained by
+				<a href="https://github.com/EpicenterPrograms" title="One awesome company">Epicenter</a>.
+			</p>
+			<p>
+				This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.
+			</p>
+		</footer>
+	</body>
 </html>
