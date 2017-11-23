@@ -17,7 +17,7 @@
 			var entityNumber = 1;
 			var entities = [];
 			var user;
-			var db = firebase.firestore();
+			//// var db = firebase.firestore();
 			var Entity = function(specs) {
 				this.appearance = {"width": "2em", "height": "2em", "background": "black"};
 				this.position = {"position": "absolute", "left": 30*Math.random()+"em", "top": 30*Math.random()+"em"};
@@ -185,6 +185,7 @@
 			});
 		</script>
 		<link rel="stylesheet" href="https://epicenterprograms.github.io/standards/formatting/foundation.css"/>
+		<link rel="stylesheet" href="https://epicenterprograms.github.io/standards/formatting/thanksgiving.css"/>
 		<style>
 			footer {
 				margin-top: 4%;
