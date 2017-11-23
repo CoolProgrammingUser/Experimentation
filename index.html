@@ -7,9 +7,6 @@
 		<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-firestore.js"></script>
 		<script src="https://epicenterprograms.github.io/standards/behavior/firebaseinit.js"></script>
-		<script>
-			firebase.initializeApp(Standards.options.serverSettings);
-		</script>
 		<script src="https://epicenterprograms.github.io/standards/behavior.js"></script>
 		<script>
 			var S = Standards;
@@ -131,7 +128,7 @@
 			}
 			function test1() {
 				S.storage.server.store("message", "This is a test.");
-				S.storage.server.recall("message", result => {S.getId("result").textContent = result;});
+				S.storage.server.recall("message", "", result => {S.getId("result").textContent = result;});
 				/*
 				if (user) {
 					db.collection("testCollection").doc("testDoc").set({
@@ -149,7 +146,7 @@
 			}
 			function test2() {
 				S.storage.server.forget("message");
-				S.storage.server.recall("message", result => {S.getId("result").textContent = result;});
+				S.storage.server.recall("message", "", result => {S.getId("result").textContent = result;});
 				/*
 				if (user) {
 					db.collection("testCollection").doc("testDoc").delete().then(function() {
