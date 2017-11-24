@@ -163,7 +163,7 @@
 			}
 			S.storage.server.defaultLocation = "testCollection/testDoc";
 			window.addEventListener("load", function() {
-				firebase.auth().addEventListener("authstatechanged", function(person) {
+				firebase.auth().onAuthStateChanged(function(person) {
 					if (person) {  // if the user is signed in
 						document.getElementById("signIn").style.display = "none";
 						document.getElementById("signUp").style.display = "none";
@@ -178,6 +178,7 @@
 					//// user = person;
 					Standards.storage.server.user = person;
 				});
+				firebase.auth().onAuthStateChanged(() => {S.getClass("main-title")[0].textContent = Testing;});
 				document.getElementById("design").addEventListener("click", function(click) {
 					click.preventDefault();
 					document.designMode = document.designMode=="off" ? "on" : "off";
