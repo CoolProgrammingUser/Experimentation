@@ -178,7 +178,7 @@
 					//// user = person;
 					Standards.storage.server.user = person;
 				});
-				firebase.auth().onAuthStateChanged(() => {S.getClass("main-title")[0].textContent = Testing;});
+				firebase.auth().onAuthStateChanged(() => {S.getClass("main-title")[0].textContent = "Testing";});
 				document.getElementById("design").addEventListener("click", function(click) {
 					click.preventDefault();
 					document.designMode = document.designMode=="off" ? "on" : "off";
