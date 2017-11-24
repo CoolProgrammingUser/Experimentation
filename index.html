@@ -18,7 +18,6 @@
 			var entityNumber = 1;
 			var entities = [];
 			var user;
-			//// var db = firebase.firestore();
 			var Entity = function(specs) {
 				this.appearance = {"width": "2em", "height": "2em", "background": "black"};
 				this.position = {"position": "absolute", "left": 30*Math.random()+"em", "top": 30*Math.random()+"em"};
@@ -116,72 +115,16 @@
 				document.getElementById("circle").style.top = position.top/10 + "em";
 				// number + string = string; String(number) and number.toString() can convert numbers to strings.
 			}
-			/*
-			function signIn() {
-				S.storage.server.signIn();
-				//// firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-			}
-			function signUp() {
-				S.storage.server.signUp();
-			}
-			function signOut() {
-				S.storage.server.signOut();
-				//// firebase.auth().signOut();
-			}
-			*/
 			function test1() {
-				S.storage.server.store("message", "This is a test.");
-				S.storage.server.recall("message", "", result => {S.getId("result").textContent = result;});
-				/*
-				if (user) {
-					db.collection("testCollection").doc("testDoc").set({
-						message: "This is a test.",
-						fact: "I am awesome."
-					}).then(function() {
-						db.collection("testCollection").doc("testDoc").get().then(
-							doc => document.getElementById("result").textContent = doc.data().message
-						);
-					});
-				} else {
-					document.getElementById("result").textContent = "You aren't allowed to store information.";
-				}
-				*/
+				S.storage.server.store("message", "This is a test.", "", () => {S.getId("result").textContent = "Stored";});
 			}
 			function test2() {
-				S.storage.server.forget("message");
 				S.storage.server.recall("message", "", result => {S.getId("result").textContent = result;});
-				/*
-				if (user) {
-					db.collection("testCollection").doc("testDoc").delete().then(function() {
-						db.collection("testCollection").doc("testDoc").get().then(
-							doc => document.getElementById("result").textContent = doc.data().message
-						).catch(
-							() => document.getElementById("result").textContent = "No data"
-						);
-					});
-				} else {
-					document.getElementById("result").textContent = "You aren't allowed to delete information.";
-				}
-				*/
+			}
+			function test3() {
+				S.storage.server.forget("message", "", () => {S.getId("result").textContent = "Deleted";});
 			}
 			window.addEventListener("load", function() {
-				/*
-				firebase.auth().onAuthStateChanged(function(person) {
-					if (person) {  // if the user is signed in
-						document.getElementById("signIn").style.display = "none";
-						document.getElementById("signUp").style.display = "none";
-						document.getElementById("signOut").style.display = "inline-block";
-						document.getElementById("result").textContent = person.displayName;
-					} else {
-						document.getElementById("signIn").style.display = "inline-block";
-						document.getElementById("signUp").style.display = "inline-block";
-						document.getElementById("signOut").style.display = "none";
-						document.getElementById("result").textContent = "Result";
-					}
-					//// user = person;
-					Standards.storage.server.user = person;
-				});
-				*/
 				document.getElementById("design").addEventListener("click", function(click) {
 					click.preventDefault();
 					document.designMode = document.designMode=="off" ? "on" : "off";
@@ -242,6 +185,9 @@
 			</button>
 			<button onclick="test2()">
 				Test 2
+			</button>
+			<button onclick="test3()">
+				Test 3
 			</button>
 			<br>
 			<br>
