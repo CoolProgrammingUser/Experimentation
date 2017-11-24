@@ -163,7 +163,7 @@
 			}
 			S.storage.server.defaultLocation = "testCollection/testDoc";
 			window.addEventListener("load", function() {
-				firebase.auth().onAuthStateChanged(function(person) {
+				firebase.auth().addEventListener("authstatechanged", function(person) {
 					if (person) {  // if the user is signed in
 						document.getElementById("signIn").style.display = "none";
 						document.getElementById("signUp").style.display = "none";
@@ -210,12 +210,15 @@
 		</style>
 	</head>
 	<body>
-		<div class="login-section">
+		<div class="user-section">
 			<button id="signIn" onclick="signIn()">
 				Log in
 			</button>
 			<button id="signUp" onclick="signUp()">
 				Register
+			</button>
+			<button id="userSettings">
+				Settings
 			</button>
 			<button id="signOut" onclick="signOut()">
 				Log out
