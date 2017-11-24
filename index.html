@@ -116,13 +116,13 @@
 				// number + string = string; String(number) and number.toString() can convert numbers to strings.
 			}
 			function test1() {
-				S.storage.server.store("message", "This is a test.", "", () => {S.getId("result").textContent = "Stored";});
+				S.storage.server.store("message", "This is a test.", "~testCollection/testDoc", () => {S.getId("result").textContent = "Stored";});
 			}
 			function test2() {
-				S.storage.server.recall("message", "", result => {S.getId("result").textContent = result;});
+				S.storage.server.recall("message", "~testCollection/testDoc", result => {S.getId("result").textContent = result;});
 			}
 			function test3() {
-				S.storage.server.forget("message", "", () => {S.getId("result").textContent = "Deleted";});
+				S.storage.server.forget("message", "~testCollection/testDoc", () => {S.getId("result").textContent = "Deleted";});
 			}
 			window.addEventListener("load", function() {
 				document.getElementById("design").addEventListener("click", function(click) {
