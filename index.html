@@ -116,6 +116,7 @@
 				document.getElementById("circle").style.top = position.top/10 + "em";
 				// number + string = string; String(number) and number.toString() can convert numbers to strings.
 			}
+			/*
 			function signIn() {
 				S.storage.server.signIn();
 				//// firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
@@ -127,6 +128,7 @@
 				S.storage.server.signOut();
 				//// firebase.auth().signOut();
 			}
+			*/
 			function test1() {
 				S.storage.server.store("message", "This is a test.");
 				S.storage.server.recall("message", "", result => {S.getId("result").textContent = result;});
@@ -213,16 +215,16 @@
 	</head>
 	<body>
 		<div class="user-section">
-			<button id="signIn" onclick="signIn()">
+			<button id="signIn">
 				Log in
 			</button>
-			<button id="signUp" onclick="signUp()">
+			<button id="signUp">
 				Register
 			</button>
 			<button id="userSettings">
 				Settings
 			</button>
-			<button id="signOut" onclick="signOut()">
+			<button id="signOut">
 				Log out
 			</button>
 		</div>
